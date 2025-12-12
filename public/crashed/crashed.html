@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Critical</title>
+</head>
+<body style="margin: 0; height: 100vh; background-color: #0a0a12; color: #ff3333; font-family: 'Courier New', monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;">
+
+    <div style="position: relative; text-align: center;">
+        <h1 id="error-text" style="font-size: 3rem; margin: 0; text-shadow: 2px 2px 0px #00f3ff; animation: glitch 1s infinite;">
+            ⚠️ SPACESHIP CRASHED
+        </h1>
+        <p style="color: #00f3ff; margin-top: 10px; font-size: 1.2rem;">SYSTEMS UNAVAILABLE</p>
+    </div>
+
+    <div style="margin-top: 40px; width: 300px; height: 100px; background: rgba(0,0,0,0.5); border: 1px solid #333; padding: 10px; font-size: 0.8rem; color: #888; overflow-y: auto;">
+        <div id="logs">
+            > HULL INTEGRITY: CRITICAL<br>
+            > ENGINES: OFFLINE<br>
+            > LIFE SUPPORT: FAILING<br>
+        </div>
+    </div>
+
+    <div style="margin-top: 20px; width: 300px; height: 4px; background: #333; border-radius: 2px;">
+        <div id="progress" style="width: 0%; height: 100%; background: #00f3ff; box-shadow: 0 0 10px #00f3ff; transition: width 0.5s;"></div>
+    </div>
+    
+    <p id="status" style="margin-top: 10px; font-size: 0.9rem; color: #fff;">INITIATING REPAIR SEQUENCE...</p>
+
+    <style>
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+    </style>
+
+    <script>
+        const progress = document.getElementById('progress');
+        const logs = document.getElementById('logs');
+        const status = document.getElementById('status');
+        let width = 0;
+
+        // Simulate repair process
+        const interval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(interval);
+                status.innerText = "SYSTEMS ONLINE. REBOOTING...";
+                status.style.color = "#00f3ff";
+                
+                // Redirect after complete
+                setTimeout(() => {
+                    window.location.href = "/spaceship/home"; 
+                }, 1000);
+            } else {
+                // Randomly increment width to look like real processing
+                width += Math.random() * 5;
+                if (width > 100) width = 100;
+                progress.style.width = width + '%';
+
+                // Add random log messages
+                if (Math.random() > 0.8) {
+                    const messages = [
+                        "> REROUTING POWER...",
+                        "> SEALING BREACHES...",
+                        "> REBOOTING AI...",
+                        "> ESTABLISHING LINK..."
+                    ];
+                    const msg = messages[Math.floor(Math.random() * messages.length)];
+                    logs.innerHTML += `${msg}<br>`;
+                    logs.scrollTop = logs.scrollHeight; // Auto scroll
+                }
+            }
+        }, 200);
+    </script>
+
+</body>
+</html>

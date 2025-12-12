@@ -1,0 +1,116 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-image: url("w.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px; /* make text bigger */
+    color: white;
+}
+
+/* MAIN CONTAINER */
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.login-box {
+    width: 450px; /* slightly wider */
+    background: rgba(255, 255, 255, 0.06);
+    padding: 30px 35px; /* slightly bigger padding */
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+}
+
+/* TITLE */
+.login-box h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+    font-size: 26px; /* slightly bigger title */
+    color: #00eaff;
+}
+
+/* INPUT AREA */
+.input-box {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* spacing between input and button */
+}
+
+.small-input {
+    flex: 1; /* takes remaining space */
+    padding: 12px 15px; /* bigger input */
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+/* BUTTON */
+button {
+    padding: 12px 20px; /* bigger button */
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    background: #00eaff;
+    color: black;
+    font-weight: bold;
+    font-size: 16px; /* bigger text */
+    transition: 0.2s ease;
+}
+
+button:hover {
+    background: #0abdc6;
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    margin-top: 20px;
+    text-align: center;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 16px; /* bigger text */
+}
+
+th, td {
+    padding: 12px 10px; /* bigger padding */
+}
+
+th {
+    background: rgba(0, 255, 255, 0.35);
+    color: black;
+    font-weight: bold;
+}
+
+td button {
+    background: #ff4b4b;
+    color: white;
+    padding: 8px 14px;
+    font-size: 15px;
+}
+
+td button:hover {
+    background: #d93636;
+}
+
+
+
+

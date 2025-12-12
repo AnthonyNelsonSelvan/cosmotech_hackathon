@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+</head>
+<body style="font-family: sans-serif; display: flex; justify-content: center; padding-top: 50px; background-color: #f4f4f9;">
+
+    <div style="width: 300px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h2 style="text-align: center; color: #333; margin-bottom: 20px;">Top Scores</h2>
+        
+        <ul id="board" style="list-style: none; padding: 0;">
+            <li style="text-align: center; color: #777;">Loading...</li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        const board = document.getElementById('board');
+        const API_URL = '/api/score/topTen';
+
+        axios.get(API_URL)
+            .then(response => {
+                const data = response.data; 
+
+                const itemsHtml = data.map(user => `
+                    <li style="display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee;">
+                        <span style="font-weight: bold; color: #555;">${user.username}</span>
+                        <span style="color: #2e8b57; font-weight: bold;">${user.score}</span>
+                    </li>
+                `).join('');
+
+                board.innerHTML = itemsHtml;
+            })
+            .catch(err => {
+                board.innerHTML = `<li style="color: red; text-align: center;">Error loading scores</li>`;
+                console.error(err);
+            });
+    </script>
+
+</body>
+</html>
