@@ -9,8 +9,7 @@ const __dirname = path.dirname(__filename);
 const getEmails = async (req, res) => {
     try {
         let { username } = req.params;
-
-        username = "nelson"//for now
+        
         const filePath = path.join(__dirname, "../email.json");
         const data = fs.readFileSync(filePath, "utf-8");
         const allEmails = JSON.parse(data);
@@ -29,6 +28,7 @@ const getEmails = async (req, res) => {
 const saveResponded = async (req, res) => {
     try {
         const { username, id } = req.body;
+        console.log(username)
         const emailId = Number(id);
         await Score.updateOne({ username: username }, {
             $addToSet: {

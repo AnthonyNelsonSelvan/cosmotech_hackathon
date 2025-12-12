@@ -1,7 +1,6 @@
 
 
 const checkAnswerAndUpdateScore = async (ans, answered, id) => {
-    localStorage.setItem("username","nelson")
     let user = localStorage.getItem("username");
     try {
         if (ans === answered) {

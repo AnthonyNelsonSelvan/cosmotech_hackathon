@@ -16,45 +16,49 @@
             <button id="loginBtn" onclick="switchTab('login')"
                 style="background: none; border: none; color: #00f3ff; font-size: 16px; cursor: pointer; padding-bottom: 5px; border-bottom: 2px solid #00f3ff; text-shadow: 0 0 8px #00f3ff; font-family: inherit;">Login</button>
             <button id="signupBtn" onclick="switchTab('signup')"
-                style="background: none; border: none; color: #8892b0; font-size: 16px; cursor: pointer; padding-bottom: 5px; border-bottom: 2px solid transparent; font-family: inherit;">Sign Up</button>
+                style="background: none; border: none; color: #8892b0; font-size: 16px; cursor: pointer; padding-bottom: 5px; border-bottom: 2px solid transparent; font-family: inherit;">Sign
+                Up</button>
         </div>
 
         <form id="login" class="auth-form" onsubmit="handleLogin(event)">
-            <h2 style="margin-bottom: 20px; letter-spacing: 2px; text-shadow: 0 0 10px rgba(0, 243, 255, 0.5); font-size: 20px;">
+            <h2
+                style="margin-bottom: 20px; letter-spacing: 2px; text-shadow: 0 0 10px rgba(0, 243, 255, 0.5); font-size: 20px;">
                 PILOT LOGIN</h2>
-            
+
             <input id="loginName" type="text" placeholder="Pilot Name" required
                 style="width: 100%; padding: 12px; margin: 8px 0; background: rgba(0, 0, 0, 0.6); border: 1px solid #112240; color: #00f3ff; font-family: inherit; box-sizing: border-box; outline: none;">
-            
+
             <input id="loginBadge" type="password" placeholder="Badge Number" required
                 style="width: 100%; padding: 12px; margin: 8px 0; background: rgba(0, 0, 0, 0.6); border: 1px solid #112240; color: #00f3ff; font-family: inherit; box-sizing: border-box; outline: none;">
-            
+
             <button type="submit" id="btnLoginAction"
-                style="width: 100%; padding: 12px; margin-top: 15px; background: #00f3ff; border: none; color: #0a192f; font-weight: bold; font-size: 16px; cursor: pointer; box-shadow: 0 0 15px rgba(0, 243, 255, 0.4); font-family: inherit;">LAUNCH MISSION</button>
+                style="width: 100%; padding: 12px; margin-top: 15px; background: #00f3ff; border: none; color: #0a192f; font-weight: bold; font-size: 16px; cursor: pointer; box-shadow: 0 0 15px rgba(0, 243, 255, 0.4); font-family: inherit;">LAUNCH
+                MISSION</button>
             <p id="loginMsg" style="color: #ff4444; margin-top: 10px; font-size: 12px;"></p>
         </form>
 
         <form id="signup" class="auth-form" style="display: none;" onsubmit="handleSignup(event)">
-            <h2 style="margin-bottom: 20px; letter-spacing: 2px; text-shadow: 0 0 10px rgba(0, 243, 255, 0.5); font-size: 20px;">
+            <h2
+                style="margin-bottom: 20px; letter-spacing: 2px; text-shadow: 0 0 10px rgba(0, 243, 255, 0.5); font-size: 20px;">
                 NEW RECRUIT</h2>
-            
+
             <input id="signupName" type="text" placeholder="Enter Name" required
                 style="width: 100%; padding: 12px; margin: 8px 0; background: rgba(0, 0, 0, 0.6); border: 1px solid #112240; color: #00f3ff; font-family: inherit; box-sizing: border-box; outline: none;">
-            
+
             <input id="signupBadge" type="text" placeholder="Assign Badge Number" required
                 style="width: 100%; padding: 12px; margin: 8px 0; background: rgba(0, 0, 0, 0.6); border: 1px solid #112240; color: #00f3ff; font-family: inherit; box-sizing: border-box; outline: none;">
-            
+
             <button type="submit" id="btnSignupAction"
-                style="width: 100%; padding: 12px; margin-top: 15px; background: #00f3ff; border: none; color: #0a192f; font-weight: bold; font-size: 16px; cursor: pointer; box-shadow: 0 0 15px rgba(0, 243, 255, 0.4); font-family: inherit;">JOIN FLEET</button>
+                style="width: 100%; padding: 12px; margin-top: 15px; background: #00f3ff; border: none; color: #0a192f; font-weight: bold; font-size: 16px; cursor: pointer; box-shadow: 0 0 15px rgba(0, 243, 255, 0.4); font-family: inherit;">JOIN
+                FLEET</button>
             <p id="signupMsg" style="color: #ff4444; margin-top: 10px; font-size: 12px;"></p>
         </form>
     </div>
 
     <script>
-        // --- 1. LOGIN LOGIC ---
         async function handleLogin(event) {
             event.preventDefault();
-            
+
             const username = document.getElementById('loginName').value;
             const badgeNumber = document.getElementById('loginBadge').value;
             const msgBox = document.getElementById('loginMsg');
@@ -64,21 +68,20 @@
             msgBox.innerText = "";
 
             try {
-                // Call API
                 const res = await axios.post('/api/user/login', {
                     username: username,
                     badgeNumber: badgeNumber
                 });
 
-                // Success
                 if (res.status === 200) {
+                    console.log(res);
                     localStorage.setItem('username', res.data.user.username);
-                    localStorage.setItem('badge', res.data.user.badgeNumber);
-                    window.location.href = "/cutscene";
+                    console.log()
+                    setTimeout(() => { window.location.href = "/cutscene"; }, 10000)
+
                 }
 
             } catch (error) {
-                // Error handling
                 console.error(error);
                 btn.innerText = "LAUNCH MISSION";
                 const serverMsg = error.response ? error.response.data.message : "Connection failed";
@@ -86,10 +89,9 @@
             }
         }
 
-        // --- 2. SIGNUP LOGIC ---
         async function handleSignup(event) {
             event.preventDefault();
-            
+
             const username = document.getElementById('signupName').value;
             const badgeNumber = document.getElementById('signupBadge').value;
             const msgBox = document.getElementById('signupMsg');
@@ -99,13 +101,13 @@
             msgBox.innerText = "";
 
             try {
-                // 2. Create User
                 const res = await axios.post('/api/user/signup', {
                     username: username,
                     badgeNumber: badgeNumber
                 });
 
                 if (res.status === 201) {
+                    console.log(res)
                     localStorage.setItem('username', res.data.user.username);
                     localStorage.setItem('badge', res.data.user.badgeNumber);
                     window.location.href = "/cutscene";
@@ -114,13 +116,11 @@
             } catch (error) {
                 console.error(error);
                 btn.innerText = "JOIN FLEET";
-                // Handle manual error throw or server error
                 const serverMsg = error.message || (error.response ? error.response.data.message : "Registration failed");
                 msgBox.innerText = "ERROR: " + serverMsg;
             }
         }
 
-        // --- 3. UI TAB SWITCHER ---
         function switchTab(tab) {
             document.getElementById('login').style.display = tab === 'login' ? 'block' : 'none';
             document.getElementById('signup').style.display = tab === 'signup' ? 'block' : 'none';
@@ -129,7 +129,7 @@
 
             const loginBtn = document.getElementById('loginBtn');
             const signupBtn = document.getElementById('signupBtn');
-            
+
             const activeStyle = "color: #00f3ff; border-bottom: 2px solid #00f3ff; text-shadow: 0 0 8px #00f3ff;";
             const inactiveStyle = "color: #8892b0; border-bottom: 2px solid transparent; text-shadow: none;";
 
@@ -143,4 +143,5 @@
         }
     </script>
 </body>
+
 </html>
